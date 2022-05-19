@@ -1,0 +1,11 @@
+RNBQKBNR
+PPPPPPPP
+________
+________
+_____pp_
+________
+ppppp__p
+rnbqkbnr
+b
+6545
+6646
