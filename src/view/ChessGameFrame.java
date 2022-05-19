@@ -203,7 +203,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addPicture() {
         JLabel background = new JLabel();
-        ImageIcon icon = new ImageIcon("D:\\CS102A\\ChessProject\\images\\GBP.jpg");
+        ImageIcon icon = new ImageIcon("D:\\CS102A\\ProjectTest\\images\\GBP.jpg");
         background.setIcon(icon);
         background.setBounds(0, 0, WIDTH, HEIGTH);
         add(background);
@@ -211,7 +211,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addChessBoardPicture() {
         JLabel background = new JLabel();
-        ImageIcon icon = new ImageIcon("D:\\CS102A\\ChessProject\\images\\Board1.jpg");
+        ImageIcon icon = new ImageIcon("D:\\CS102A\\ProjectTest\\images\\Board1.jpg");
         background.setIcon(icon);
         background.setBounds(HEIGTH / 10, HEIGTH / 10, 608, 608);
         add(background);
