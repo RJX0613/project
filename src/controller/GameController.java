@@ -31,7 +31,7 @@ public class GameController extends Component {
 
     public GameController(Chessboard chessboard) {
         try {
-            File musicPath = new File("D:\\CS102A\\Project1\\BGM.wav");
+            File musicPath = new File("D:\\CS102A\\Project2\\BGM.wav");
             if (musicPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 bgm = AudioSystem.getClip();
