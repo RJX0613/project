@@ -186,7 +186,6 @@ public class Chessboard extends JComponent {
         }
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

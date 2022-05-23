@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameController;
+import model.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 
 /**
@@ -24,6 +26,10 @@ public class ChessGameFrame extends JFrame {
     public String BGMState = "OFF";
     private String path;
     TimerTask timerTask = new TimerTask();
+    public String[] backgroundPicture={"D:\\CS102A\\ChessProject\\images\\GBP.jpg","D:\\CS102A\\ChessProject\\images\\Background.jpg","D:\\CS102A\\ChessProject\\images\\Background02.jpg","D:\\CS102A\\ChessProject\\images\\Background03.jpg"};
+    public String[] boardPicture={"D:\\CS102A\\ChessProject\\images\\Board1.jpg","D:\\CS102A\\ChessProject\\images\\Chessboard.jpg","D:\\CS102A\\ChessProject\\images\\Board02.jpg","D:\\CS102A\\ChessProject\\images\\Board03.jpg"};
+    public String bg=backgroundPicture[0];
+    public String cb=boardPicture[0];
 
     public TimerTask getTimerTask() {
         return timerTask;
@@ -42,18 +48,37 @@ public class ChessGameFrame extends JFrame {
 
 
         addChessboard();
-        addTimer();
         addLabel();
 //        addHelloButton();
+        addReview();
+        addSwitch();
         addReStartButton();
         addLoadButton();
         addPlayBGMButton();
         addUndo();
         addSaveButton();
+        addTimer();
         addChessBoardPicture();
         addPicture();
     }
 
+    public void Switch(){
+//        if(bg.equals(backgroundPicture[0])){
+//            bg=backgroundPicture[1];
+//        }else{
+//            bg=backgroundPicture[0];
+//        }
+//        if(cb.equals(boardPicture[0])){
+//            cb=boardPicture[1];
+//        }else{
+//            cb=boardPicture[0];
+//        }
+        Random r=new Random();
+        int r1=r.nextInt(4);
+        int r2=r.nextInt(4);
+        bg=backgroundPicture[r1];
+        cb=boardPicture[r2];
+    }
     /**
      * 在游戏面板中添加棋盘
      */
@@ -201,20 +226,46 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
+    private void addReview(){
+        JButton button = new JButton("Review");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 420);
+        button.setSize(100, 30);
+        button.setFont(new Font("Rockwell", Font.BOLD, 10));
+        add(button);
+
+        button.addActionListener(e -> {
+            gameController.getChessboard().initChessboard();
+            gameController.getChessboard().setCurrentColor(ChessColor.WHITE);
+            gameController.getChessboard().repaint();
+            timeTask timeTask=new timeTask();
+            timeTask.timer1.schedule(timeTask,0,500);
+            if(statusLabel.getText().equals("White")){
+                gameController.getChessboard().setCurrentColor(ChessColor.WHITE);
+            }else{
+                gameController.getChessboard().setCurrentColor(ChessColor.BLACK);
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException exception) {
+                exception.printStackTrace();
+            }
+        });
+    }
+
+    JLabel background = new JLabel();
     private void addPicture() {
-        JLabel background = new JLabel();
-        ImageIcon icon = new ImageIcon("D:\\CS102A\\ProjectTest\\images\\GBP.jpg");
+        ImageIcon icon = new ImageIcon(bg);
         background.setIcon(icon);
         background.setBounds(0, 0, WIDTH, HEIGTH);
         add(background);
     }
 
+    JLabel board = new JLabel();
     private void addChessBoardPicture() {
-        JLabel background = new JLabel();
-        ImageIcon icon = new ImageIcon("D:\\CS102A\\ProjectTest\\images\\Board1.jpg");
-        background.setIcon(icon);
-        background.setBounds(HEIGTH / 10, HEIGTH / 10, 608, 608);
-        add(background);
+        ImageIcon icon = new ImageIcon(cb);
+        board.setIcon(icon);
+        board.setBounds(HEIGTH / 10, HEIGTH / 10, 608, 608);
+        add(board);
     }
 
     private void addUndo() {
@@ -226,6 +277,20 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             System.out.println("Click undo");
             gameController.undo();
+        });
+    }
+
+    private void addSwitch() {
+        JButton button = new JButton("Switch");
+        button.setLocation(HEIGTH + 100, HEIGTH / 10 + 420);
+        button.setSize(100, 30);
+        button.setFont(new Font("Rockwell", Font.BOLD, 10));
+        add(button);
+        button.addActionListener(e -> {
+            Switch();
+            background.setIcon(new ImageIcon(bg));
+            board.setIcon(new ImageIcon(cb));
+            System.out.println("Switch");
         });
     }
 
@@ -248,12 +313,10 @@ public class ChessGameFrame extends JFrame {
 
     public static class TimerTask extends java.util.TimerTask {
         int time = 32;
-        Label timeLabel = new Label("33s");
-
+        Label timeLabel = new Label("32s");
         public void resetTime() {
             time = 31;
         }
-
         @Override
         public void run() {
             time--;
@@ -266,6 +329,21 @@ public class ChessGameFrame extends JFrame {
         }
     }
 
+    public static class timeTask extends java.util.TimerTask{
+        int time1=-4;
+        Timer timer1=new Timer();
+
+        @Override
+        public void run() {
+            time1++;
+            if(time1>=gameController.getChessboard().step.size()){
+                timer1.cancel();
+            }else if(time1>=0){
+                gameController.getChessboard().move(gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(0)-48][gameController.getChessboard().step.get(time1).charAt(1)-48],gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(2)-48][gameController.getChessboard().step.get(time1).charAt(3)-48]);
+            }
+
+        }
+    }
 
 //    private void showFileSaveDialog(Component component, JTextArea jTextArea) {
 //        JFileChooser fileChooser = new JFileChooser();

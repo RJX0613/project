@@ -31,7 +31,7 @@ public class GameController extends Component {
 
     public GameController(Chessboard chessboard) {
         try {
-            File musicPath = new File("D:\\CS102A\\ProjectTest\\BGM.wav");
+            File musicPath = new File("D:\\CS102A\\ChessProject\\BGM.wav");
             if (musicPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 bgm = AudioSystem.getClip();
@@ -89,7 +89,7 @@ public class GameController extends Component {
     }
 
     public void saveGame() throws IOException {
-        String path = null;
+        String path;
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("."));
         fileChooser.setSelectedFile(new File("save.txt"));
