@@ -73,7 +73,7 @@ public class ClickController {
 
     private void click(){
         try {
-            File musicPath = new File("D:\\CS102A\\ChessProject\\images\\click.wav");
+            File musicPath = new File("D:\\CS102A\\ProjectTest\\images\\click.wav");
             if (musicPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 click = AudioSystem.getClip();
