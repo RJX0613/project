@@ -1,7 +1,7 @@
 package view;
 
 import controller.GameController;
-import model.ChessColor;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,8 +26,8 @@ public class ChessGameFrame extends JFrame {
     public String BGMState = "OFF";
     private String path;
     TimerTask timerTask = new TimerTask();
-    public String[] backgroundPicture={"D:\\Project\\images\\GBP.jpg","D:\\Project\\images\\Background.jpg","D:\\Project\\images\\Background02.jpg","D:\\Project\\images\\Background03.jpg"};
-    public String[] boardPicture={"D:\\Project\\images\\Board1.jpg","D:\\Project\\images\\Chessboard.jpg","D:\\Project\\images\\Board02.jpg","D:\\Project\\images\\Board03.jpg"};
+    public String[] backgroundPicture={"D:\\CS102A\\ChessProject\\images\\GBP.jpg","D:\\CS102A\\ChessProject\\images\\Background.jpg","D:\\CS102A\\ChessProject\\images\\Background02.jpg","D:\\CS102A\\ChessProject\\images\\Background03.jpg"};
+    public String[] boardPicture={"D:\\CS102A\\ChessProject\\images\\Board1.jpg","D:\\CS102A\\ChessProject\\images\\Board02.jpg","D:\\CS102A\\ChessProject\\images\\Board03.jpg"};
     public String bg=backgroundPicture[0];
     public String cb=boardPicture[0];
 
@@ -47,6 +47,7 @@ public class ChessGameFrame extends JFrame {
         setLayout(null);
 
 
+        addLabel2();
         addChessboard();
         addLabel();
 //        addHelloButton();
@@ -60,22 +61,13 @@ public class ChessGameFrame extends JFrame {
         addTimer();
         addChessBoardPicture();
         addPicture();
+
     }
 
     public void Switch(){
-//        if(bg.equals(backgroundPicture[0])){
-//            bg=backgroundPicture[1];
-//        }else{
-//            bg=backgroundPicture[0];
-//        }
-//        if(cb.equals(boardPicture[0])){
-//            cb=boardPicture[1];
-//        }else{
-//            cb=boardPicture[0];
-//        }
         Random r=new Random();
         int r1=r.nextInt(4);
-        int r2=r.nextInt(4);
+        int r2=r.nextInt(3);
         bg=backgroundPicture[r1];
         cb=boardPicture[r2];
     }
@@ -94,19 +86,32 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加标签
      */
+
+    private  void addLabel2(){
+        JLabel label2 = new JLabel("CURRENT PLAYER:");
+        label2.setLocation(HEIGTH-10, HEIGTH / 10+10);
+        label2.setSize(250, 60);
+        label2.setFont(new Font("宋体", Font.BOLD, 25));
+        label2.setForeground(Color.CYAN);
+        add(label2);
+    }
+
+
     private void addLabel() {
         statusLabel = new JLabel("White");
-        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
+        statusLabel.setLocation(HEIGTH+40, HEIGTH / 10+50);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("宋体", Font.BOLD, 40));
+        statusLabel.setForeground(Color.CYAN);
         add(statusLabel);
     }
 
 
     private void addTimer() {
         timerTask.timeLabel.setLocation(HEIGTH, HEIGTH / 15 - 20);
-        timerTask.timeLabel.setSize(WIDTH / 18, HEIGTH / 17);
-        timerTask.timeLabel.setFont(new Font("Rockwell", Font.BOLD, HEIGTH / 39));
+        timerTask.timeLabel.setSize(WIDTH / 15, HEIGTH / 15);
+        timerTask.timeLabel.setFont(new Font("Rockwell", Font.BOLD, HEIGTH / 25));
+        timerTask.timeLabel.setForeground(Color.GREEN);
         add(timerTask.timeLabel);
         Timer timer = new Timer();
         timer.schedule(timerTask, 0, 1000);
@@ -130,23 +135,12 @@ public class ChessGameFrame extends JFrame {
         }
     }
 
-    /**
-     * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
-     */
-
-//    private void addHelloButton() {
-//        JButton button = new JButton("Show Hello Here");
-//        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
-//        button.setLocation(HEIGTH, HEIGTH / 10 + 120);
-//        button.setSize(200, 60);
-//        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-//        add(button);
-//    }
     private void addReStartButton() {
         JButton button = new JButton("RESTART");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 120);
+        button.setLocation(280, 10);
         button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setFont(new Font("Rockwell", Font.ITALIC, 30));
+        button.setForeground(Color.PINK);
         add(button);
 
         button.addActionListener(e -> {
@@ -156,10 +150,11 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addLoadButton() {
-        JButton button = new JButton("Load");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 240);
+        JButton button = new JButton("LOAD");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 205);
         button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setFont(new Font("Rockwell", Font.ITALIC, 30));
+        button.setForeground(Color.PINK);
         add(button);
 
         button.addActionListener(e -> {
@@ -209,10 +204,11 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addPlayBGMButton() {
-        JButton button = new JButton("Play");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 360);
-        button.setSize(100, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 10));
+        JButton button = new JButton("PLAY MUSIC");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 355);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.ITALIC, 28));
+        button.setForeground(Color.PINK);
         add(button);
 
         button.addActionListener(e -> {
@@ -227,10 +223,11 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addReview(){
-        JButton button = new JButton("Review");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 420);
-        button.setSize(100, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 10));
+        JButton button = new JButton("REVIEW");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 430);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.ITALIC, 30));
+        button.setForeground(Color.PINK);
         add(button);
 
         button.addActionListener(e -> {
@@ -269,10 +266,11 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addUndo() {
-        JButton button = new JButton("Undo");
-        button.setLocation(HEIGTH + 100, HEIGTH / 10 + 360);
-        button.setSize(100, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 10));
+        JButton button = new JButton("UNDO");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 280);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.ITALIC,30));
+        button.setForeground(Color.PINK);
         add(button);
         button.addActionListener(e -> {
             System.out.println("Click undo");
@@ -281,10 +279,11 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addSwitch() {
-        JButton button = new JButton("Switch");
-        button.setLocation(HEIGTH + 100, HEIGTH / 10 + 420);
-        button.setSize(100, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 10));
+        JButton button = new JButton("SWITCH");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 505);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.ITALIC, 30));
+        button.setForeground(Color.PINK);
         add(button);
         button.addActionListener(e -> {
             Switch();
@@ -295,10 +294,11 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addSaveButton() {
-        JButton button = new JButton("Save");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 480);
+        JButton button = new JButton("SAVE");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 130);
         button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setFont(new Font("Rockwell", Font.BOLD, 30));
+        button.setForeground(Color.PINK);
         add(button);
 
         button.addActionListener(e -> {
@@ -320,13 +320,26 @@ public class ChessGameFrame extends JFrame {
         @Override
         public void run() {
             time--;
+            if (time>=16){
+                timeLabel.setForeground(Color.GREEN);
+
+            }
+            if (time == 15) {
+                timeLabel.setForeground(Color.orange);
+            }
+            if (time==10){
+                timeLabel.setForeground(Color.red);
+            }
             if (time == 0) {
                 resetTime();
+                timeLabel.setForeground(Color.GREEN);
                 gameController.getChessboard().swapColor();
             }
+
             timeLabel.setText(String.format("%ds", this.time));
             timeLabel.repaint();
         }
+
     }
 
     public static class timeTask extends java.util.TimerTask{
@@ -339,95 +352,53 @@ public class ChessGameFrame extends JFrame {
             if(time1>=gameController.getChessboard().step.size()){
                 timer1.cancel();
             }else if(time1>=0){
-                gameController.getChessboard().move(gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(0)-48][gameController.getChessboard().step.get(time1).charAt(1)-48],gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(2)-48][gameController.getChessboard().step.get(time1).charAt(3)-48]);
+               // gameController.getChessboard().move(gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(0)-48][gameController.getChessboard().step.get(time1).charAt(1)-48],gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(2)-48][gameController.getChessboard().step.get(time1).charAt(3)-48]);
+                ChessComponent chess1 = gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(0) - 48][gameController.getChessboard().step.get(time1).charAt(1) - 48];
+                ChessComponent chess2 = gameController.getChessboard().getChessComponents()[gameController.getChessboard().step.get(time1).charAt(2) - 48][gameController.getChessboard().step.get(time1).charAt(3) - 48];
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'B') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new BishopChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'b') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new BishopChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'N') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new KnightChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'n') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new KnightChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'Q') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new QueenChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'q') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new QueenChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'R') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new RookChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.BLACK, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                if (gameController.getChessboard().step.get(time1).charAt(4) == 'r') {
+                    gameController.getChessboard().remove(chess1);
+                    chess1 = new RookChessComponent(chess1.getChessboardPoint(), chess1.getLocation(), ChessColor.WHITE, gameController.getChessboard().getClickController(), 76);
+                    gameController.getChessboard().add(chess1);
+                }
+                chess1.repaint();
+                chess2.repaint();
+                gameController.getChessboard().move(chess1, chess2);
             }
-
         }
     }
-
-//    private void showFileSaveDialog(Component component, JTextArea jTextArea) {
-//        JFileChooser fileChooser = new JFileChooser();
-//
-//        fileChooser.setSelectedFile(new File("save.txt"));
-//
-//        int result = fileChooser.showSaveDialog(component);
-//
-//        if (result == JFileChooser.APPROVE_OPTION) {
-//            File file = fileChooser.getSelectedFile();
-//            jTextArea.append("保存到文件：" + file.getAbsolutePath() + "\n\n");
-//        }
-//    }
-
-//    private void showFileOpenDialog(Component component) {
-//        JFileChooser fileChooser = new JFileChooser();
-//
-//        fileChooser.setCurrentDirectory(new File("."));
-//
-//        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-//        fileChooser.setMultiSelectionEnabled(false);
-//
-////        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("zip(*.zip, *.rar)", "zip", "rar"));
-////        fileChooser.setFileFilter(new FileNameExtensionFilter("text(*.txt)", "txt"));
-//        int result = fileChooser.showOpenDialog(component);
-//        if (result == JFileChooser.APPROVE_OPTION) {
-//            File file = fileChooser.getSelectedFile();
-////            jTextArea.append("打开文件：" + file.getAbsolutePath() + "\n\n");
-//            path = file.getAbsolutePath();
-//        }
-//    }
-
-//    private void openFile() {
-//        final JFrame jFrame = new JFrame("加载存档");
-//        jFrame.setSize(400, 250);
-//        jFrame.setLocationRelativeTo(null);
-//        jFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-//
-//        JPanel panel = new JPanel();
-//        final JTextArea msgTextArea = new JTextArea(10, 30);
-//        msgTextArea.setLineWrap(true);
-//        panel.add(msgTextArea);
-//
-//        JButton openBtn = new JButton("打开");
-//        JButton sure = new JButton("确认");
-//        openBtn.addActionListener(e -> showFileOpenDialog(jFrame));
-//        sure.addActionListener(e -> {
-//            gameController.loadGameFromFile(path);
-//            jFrame.setVisible(false);
-//        });
-//        panel.add(openBtn);
-//        panel.add(sure);
-//
-//        jFrame.setContentPane(panel);
-//        jFrame.setVisible(true);
-//    }
-
-//    private void saveFile(){
-//        final JFrame jFrame=new JFrame("保存存档");
-//        jFrame.setSize(400,250);
-//        jFrame.setLocationRelativeTo(null);
-//        jFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-//
-//        JPanel panel=new JPanel();
-//        final JTextArea msgTextArea=new JTextArea(10,30);
-//        msgTextArea.setLineWrap(true);
-//        panel.add(msgTextArea);
-//
-//        JButton openBtn=new JButton("打开");
-//        JButton sure=new JButton("确认");
-//        openBtn.addActionListener(e->showFileSaveDialog(jFrame,msgTextArea));
-//        sure.addActionListener(e->{
-//            try {
-//                gameController.saveGame();
-//                sure.setVisible(false);
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-//        });
-//
-//        panel.add(openBtn);
-//        panel.add(sure);
-//
-//        jFrame.setContentPane(panel);
-//        jFrame.setVisible(true);
-//    }
 }

@@ -1,15 +1,13 @@
 package model;
 
-import view.Chessboard;
-import view.interior_chessboard;
-import view.ChessboardPoint;
 import controller.ClickController;
+import view.Chessboard;
+import view.ChessboardPoint;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import java.util.List;
  */
 public abstract class ChessComponent extends JComponent {
 
-    private boolean entered;
     /**
      * CHESSGRID_SIZE: 主要用于确定每个棋子在页面中显示的大小。
      * <br>
@@ -27,14 +24,7 @@ public abstract class ChessComponent extends JComponent {
      * 因此每个棋子占用的形状是一个正方形，大小是50*50
      */
 
-    public boolean isEntered(){
-        return entered;
-    }
-
-    public void setEntered(boolean entered){
-        this.entered=entered;
-    }
-//    private static final Dimension CHESSGRID_SIZE = new Dimension(1080 / 4 * 3 / 8, 1080 / 4 * 3 / 8);
+    private boolean entered;
     private static final Color[] BACKGROUND_COLORS = {Color.WHITE, Color.BLACK};
     /**
      * handle click event
@@ -53,10 +43,18 @@ public abstract class ChessComponent extends JComponent {
     protected final ChessColor chessColor;
     private boolean selected;
     private boolean Trace;
-    public interior_chessboard interior_chessboard;
+
     public Chessboard chessboard;
 
-    protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size,Chessboard chessboard) {
+    public boolean isEntered() {
+        return this.entered;
+    }
+
+    public void setEntered(boolean entered) {
+        this.entered = entered;
+    }
+
+    protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
         setLocation(location);
         setSize(size, size);
@@ -64,12 +62,6 @@ public abstract class ChessComponent extends JComponent {
         this.chessColor = chessColor;
         this.selected = false;
         this.clickController = clickController;
-        this.chessboard=chessboard;
-    }
-
-    protected ChessComponent(ChessboardPoint chessboardPoint,ChessColor chessColor){
-        this.chessboardPoint = chessboardPoint;
-        this.chessColor = chessColor;
     }
 
     public boolean isTrace() {
@@ -123,17 +115,16 @@ public abstract class ChessComponent extends JComponent {
     protected void processMouseEvent(MouseEvent e) {
         super.processMouseEvent(e);
 
-
         if (e.getID() == MouseEvent.MOUSE_PRESSED) {
             System.out.printf("Click [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
             clickController.onClick(this);
         }
-        if (e.getID()==MouseEvent.MOUSE_ENTERED){
-            clickController.entered(this);
+        if (e.getID() == 504) {
+            this.clickController.entered(this);
         }
-        if (e.getID()==MouseEvent.MOUSE_EXITED){
+        if (e.getID() == 505) {
             this.setEntered(false);
-            repaint();
+            this.repaint();
         }
     }
 
@@ -145,15 +136,14 @@ public abstract class ChessComponent extends JComponent {
      * 这个方法主要是检查移动的合法性，如果合法就返回true，反之是false
      */
     public abstract boolean canMoveTo(ChessComponent[][] chessboard, ChessboardPoint destination);
+
     public abstract List<ChessboardPoint> trace();
 
-//    public  boolean   checkJudge(ChessboardPoint chessboardPoint){
-//        interior_chessboard.currentColor=chessboard.getCurrentColor();
-//        interior_chessboard.chessComponents=chessboard.chessComponents2();
-//
-//    }
-
-
+    /**
+     * 这个方法主要用于加载一些特定资源，如棋子图片等等。
+     *
+     * @throws IOException 如果一些资源找不到(如棋子图片路径错误)，就会抛出异常
+     */
     public abstract void loadResource() throws IOException;
 
 //    @Override
@@ -164,5 +154,4 @@ public abstract class ChessComponent extends JComponent {
 //        g.setColor(squareColor);
 //        g.fillRect(0, 0, this.getWidth(), this.getHeight());
 //    }
-
 }

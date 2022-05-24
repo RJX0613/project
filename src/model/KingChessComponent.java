@@ -1,9 +1,8 @@
 package model;
 
-import view.ChessGameFrame;
-import view.Chessboard;
-import view.ChessboardPoint;
 import controller.ClickController;
+import view.ChessGameFrame;
+import view.ChessboardPoint;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -64,13 +63,11 @@ public class KingChessComponent extends ChessComponent {
         }
     }
 
-    public KingChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size, Chessboard chessboard) {
-        super(chessboardPoint, location, color, listener, size,chessboard);
+    public KingChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size) {
+        super(chessboardPoint, location, color, listener, size);
         initiateKingImage(color);
     }
-    public KingChessComponent(ChessboardPoint chessboardPoint,ChessColor color){
-        super(chessboardPoint,color);
-    }
+
     /**
      * 车棋子的移动规则
      *
@@ -87,7 +84,7 @@ public class KingChessComponent extends ChessComponent {
 
     public List<ChessboardPoint> trace() {
         ChessComponent[][] chessboard = ChessGameFrame.gameController.getChessboard().getChessComponents();
-        java.util.List<ChessboardPoint> canto = new ArrayList<>();
+        List<ChessboardPoint> canto = new ArrayList<>();
         int x = getChessboardPoint().getX();
         int y = getChessboardPoint().getY();
         if (x + 1 <= 7) {
@@ -132,7 +129,7 @@ public class KingChessComponent extends ChessComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 //        g.drawImage(rookImage, 0, 0, getWidth() - 13, getHeight() - 20, this);
-
+        g.drawImage(kingImage, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.BLACK);
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
@@ -140,8 +137,9 @@ public class KingChessComponent extends ChessComponent {
         }
         if (isTrace()) {
             g.setColor(Color.BLUE);
-            g.fillOval(0, 0, getWidth(), getHeight());
+            g.drawOval(0, 0, getWidth(), getHeight());
             this.setTrace(false);
-        } g.drawImage(kingImage, 0, 0, getWidth(), getHeight(), this);
+        }
+
     }
 }

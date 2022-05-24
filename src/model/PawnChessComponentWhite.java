@@ -1,9 +1,8 @@
 package model;
 
-import view.ChessGameFrame;
-import view.Chessboard;
-import view.ChessboardPoint;
 import controller.ClickController;
+import view.ChessGameFrame;
+import view.ChessboardPoint;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -64,12 +63,9 @@ public class PawnChessComponentWhite extends ChessComponent {
         }
     }
 
-    public PawnChessComponentWhite(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size, Chessboard chessboard) {
-        super(chessboardPoint, location, color, listener, size,chessboard);
+    public PawnChessComponentWhite(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size) {
+        super(chessboardPoint, location, color, listener, size);
         initiatePawnImage(color);
-    }
-    public PawnChessComponentWhite(ChessboardPoint chessboardPoint,ChessColor color){
-        super(chessboardPoint,color);
     }
 
     /**
@@ -179,7 +175,7 @@ public class PawnChessComponentWhite extends ChessComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 //        g.drawImage(rookImage, 0, 0, getWidth() - 13, getHeight() - 20, this);
-
+        g.drawImage(pawnImage, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.BLACK);
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
@@ -187,8 +183,8 @@ public class PawnChessComponentWhite extends ChessComponent {
         }
         if (isTrace()) {
             g.setColor(Color.BLUE);
-            g.fillOval(0, 0, getWidth(), getHeight());
+            g.drawOval(0, 0, getWidth(), getHeight());
             this.setTrace(false);
-        }g.drawImage(pawnImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }
