@@ -26,8 +26,8 @@ public class ChessGameFrame extends JFrame {
     public String BGMState = "OFF";
     private String path;
     TimerTask timerTask = new TimerTask();
-    public String[] backgroundPicture={"D:\\CS102A\\ProjectTest\\images\\GBP.jpg","D:\\CS102A\\ProjectTest\\images\\Background.jpg","D:\\CS102A\\ProjectTest\\images\\Background02.jpg","D:\\CS102A\\ProjectTest\\images\\Background03.jpg"};
-    public String[] boardPicture={"D:\\CS102A\\ProjectTest\\images\\Board1.jpg","D:\\CS102A\\ProjectTest\\images\\Chessboard.jpg","D:\\CS102A\\ProjectTest\\images\\Board02.jpg","D:\\CS102A\\ProjectTest\\images\\Board03.jpg"};
+    public String[] backgroundPicture={"D:\\Project\\images\\GBP.jpg","D:\\Project\\images\\Background.jpg","D:\\Project\\images\\Background02.jpg","D:\\Project\\images\\Background03.jpg"};
+    public String[] boardPicture={"D:\\Project\\images\\Board1.jpg","D:\\Project\\images\\Chessboard.jpg","D:\\Project\\images\\Board02.jpg","D:\\Project\\images\\Board03.jpg"};
     public String bg=backgroundPicture[0];
     public String cb=boardPicture[0];
 

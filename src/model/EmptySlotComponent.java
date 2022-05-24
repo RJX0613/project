@@ -1,7 +1,8 @@
 package model;
 
-import controller.ClickController;
+import view.Chessboard;
 import view.ChessboardPoint;
+import controller.ClickController;
 
 import java.awt.*;
 import java.io.IOException;
@@ -17,8 +18,11 @@ public class EmptySlotComponent extends ChessComponent {
     public void loadResource() throws IOException {
     }
 
-    public EmptySlotComponent(ChessboardPoint chessboardPoint, Point location, ClickController listener, int size) {
-        super(chessboardPoint, location, ChessColor.NONE, listener, size);
+    public EmptySlotComponent(ChessboardPoint chessboardPoint, Point location, ClickController listener, int size,Chessboard chessboard) {
+        super(chessboardPoint, location, ChessColor.NONE, listener, size, chessboard);
+    }
+    public EmptySlotComponent(ChessboardPoint chessboardPoint,ChessColor color){
+        super(chessboardPoint,color);
     }
 
     @Override
@@ -45,6 +49,13 @@ public class EmptySlotComponent extends ChessComponent {
             g.setColor(Color.BLUE);
             g.drawOval(0, 0, getWidth(), getHeight());
             this.setTrace(false);
+
         }
+        if (isEntered()){
+            g.setColor(Color.green);
+            g.fillOval(0, 0, getWidth(), getHeight());
+            this.setEntered(false);
+        }
+
     }
 }

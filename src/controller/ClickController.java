@@ -12,6 +12,11 @@ public class ClickController {
     private ChessComponent first;
     private Clip click;
 
+    public void entered(ChessComponent chessComponent){
+        chessComponent.setEntered(true);
+        chessboard.repaint();
+    }
+
     public ClickController(Chessboard chessboard) {
         this.chessboard = chessboard;
     }
@@ -73,7 +78,7 @@ public class ClickController {
 
     private void click(){
         try {
-            File musicPath = new File("D:\\CS102A\\ProjectTest\\images\\click.wav");
+            File musicPath = new File("D:\\Project\\images\\click.wav");
             if (musicPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 click = AudioSystem.getClip();
@@ -86,4 +91,6 @@ public class ClickController {
             e.printStackTrace();
         }
     }
-}
+
+    }
+
